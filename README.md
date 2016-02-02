@@ -2,6 +2,23 @@
 
 Vagrantで立ち上げた2台のVMで、ansibleを使ってプロビジョニングするplaybookを作りました。
 
+## 開発環境
+
+VirtualBox5.0.14
+Vagrant1.8.1
+
+## VMの構成
+
+* WEBサーバ（dev）192.168.33.10
+* ansibleサーバ（ansible） 192.168.33.20
+
+### OSとミドルウェアのバージョン
+
+* centos 7.2
+* nginx 1.9.10
+* php 7.0.2
+* mysql(mariadb) 5.6.28
+
 ## 準備
 
 /provision/group_vars/allを適宜修正してください。
