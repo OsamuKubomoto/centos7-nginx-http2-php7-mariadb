@@ -1,0 +1,10 @@
+- name: example-project
+  hosts: dev
+  user: vagrant
+  sudo: yes
+
+  roles:
+    - common
+    - php-fpm
+    - nginx
+    - mariadb

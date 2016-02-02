@@ -1,0 +1,31 @@
+- name: install mysql repository
+  command: >
+    yum -y install http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
+    creates=/etc/yum.repos.d/mysql-community.repo
+
+- name: install mariadb
+  yum: name={{ item }} state=installed
+  with_items:
+    - MySQL-python
+    - mariadb
+    - mariadb-server
+    - mariadb-devel
+    - libselinux-python
+
+- name: start mysql
+  service: name=mysql state=started enabled=yes
+
+- name: delete anonymous user
+  mysql_user: name='' state=absent
+  register: result
+  ignore_errors: true
+
+- name: drop test database
+  mysql_db: name=test state=absent
+
+- name: create db user
+  mysql_user: name={{ mysql_user_name }} password={{ mysql_user_password }} priv=*.*:ALL
+
+- name: create database
+  mysql_db: name={{ mysql_db_name }} state=present
+
